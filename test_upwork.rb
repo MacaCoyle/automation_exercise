@@ -28,17 +28,31 @@ driver.navigate().to(url[:url_test])
   search_submit_button = driver.find_element(:xpath, '/html/body/div[1]/div[2]/div/up-header-visitor-primary-nav/nav/div/div[2]/div[1]/up-header-search/up-c-on-click-outside/form/div/div/button[1]/span[1]').click
   print"The user have clicked in the submit search button"
   sleep(10)
+  #Frelance search list
+  freelance_card = driver.find_elements(:xpath, '//*[@id="oContractorResults"]/div/div/section')
+  search_value = driver.find_elements(:xpath, '//*[text()="keyword"]')
 
-  #Frelance search list, I've created a hash to map all the card and only click one
-  freelance_card = driver.find_element(:xpath, '/html/body/div[1]/div[2]/div/div[2]/div/div[3]/section/div/div/section[1]')
-
-  def select_random_card
-    return freelance_card.sample
+  def keyword_display
+    if search_value.displayed?
+      return print "There are word containing keywords"
+    else 
+      return print "There are no words containing keywords" 
+    end
   end
-  sleep(2)
-  select_random_card.click
 
-  print"The user have clicked in a random freelance card"
+  keyword_display
+  sleep(5)
+  freelance_title = driver.find_elements(:xpath,'//*[@id="oContractorResults"]/div/div/section/div/div/article/div[2]/div[1]/div/h4')
+  sleep(1)
+  card = freelance_title.sample
+  sleep(1)
+  print"it is going to click a job title card randomly"
+  card.click
+  sleep(8)
+  keyword_display
+  sleep(8)
+
+
 
 
 driver.close
